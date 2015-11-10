@@ -1,13 +1,13 @@
 package org.sharpsw.kraken.org.sharpsw.kraken.configuration;
 
-public abstract class BaseDatabaseConfiguration {
+public abstract class DatabaseConfiguration {
     private String host;
     private Integer port;
     private String user;
     private String password;
     private String schema;
 
-    public BaseDatabaseConfiguration() {
+    public DatabaseConfiguration() {
         host = "";
         port = 0;
         user = "";
@@ -54,6 +54,8 @@ public abstract class BaseDatabaseConfiguration {
     public String getSchema() {
         return schema;
     }
+
+    public abstract String getJdbcDriverClassname();
 
     public abstract String getConnectionString();
 }
