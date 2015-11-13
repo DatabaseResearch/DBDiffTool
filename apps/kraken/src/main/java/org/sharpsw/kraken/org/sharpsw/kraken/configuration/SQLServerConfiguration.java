@@ -19,18 +19,18 @@ public class SQLServerConfiguration extends DatabaseConfiguration {
     @Override
     public String getConnectionString() {
         if(namedInstance == null || namedInstance.isEmpty()) {
-            return String.format("jdbc:jtds:sqlserver://%s:%d;databaseName=%s;user=%s;password=%s",
+            return String.format("jdbc:jtds:sqlserver://%s:%d/%s;user=%s;password=%s",
                                  getHost(),
                                  getPort(),
                                  getSchema(),
                                  getUser(),
                                  getPassword());
         }
-        return String.format("jdbc:jtds:sqlserver://%s\\%s:%d;databaseName=%s;user=%s;password=%s",
+        return String.format("jdbc:jtds:sqlserver://%s:%d/%s;instance=%s;user=%s;password=%s",
                              getHost(),
-                             getNamedInstance(),
                              getPort(),
                              getSchema(),
+                             getNamedInstance(),
                              getUser(),
                              getPassword());
     }
