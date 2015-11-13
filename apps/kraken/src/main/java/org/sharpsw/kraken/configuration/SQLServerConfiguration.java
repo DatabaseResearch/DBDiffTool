@@ -1,4 +1,4 @@
-package org.sharpsw.kraken.org.sharpsw.kraken.configuration;
+package org.sharpsw.kraken.configuration;
 
 public class SQLServerConfiguration extends DatabaseConfiguration {
     private String namedInstance;

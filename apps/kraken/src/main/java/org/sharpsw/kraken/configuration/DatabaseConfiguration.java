@@ -1,4 +1,4 @@
-package org.sharpsw.kraken.org.sharpsw.kraken.configuration;
+package org.sharpsw.kraken.configuration;
 
 public abstract class DatabaseConfiguration {
     private String host;
