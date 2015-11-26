@@ -45,4 +45,44 @@ public class Column {
     public int getSize() {
         return size;
     }
+
+    public void setDecimalDigits(int digits) {
+        decimalDigits = digits;
+    }
+
+    public int getDecimalDigits() {
+        return decimalDigits;
+    }
+
+    public void setOrdinalPosition(int position) {
+        ordinalPosition = position;
+    }
+
+    public int getOrdinalPosition() {
+        return ordinalPosition;
+    }
+
+    public void setIsNullable(String info) {
+        isNullable = info;
+    }
+
+    public String getIsNullable() {
+        return isNullable;
+    }
+
+    public void setIsAutoIncrement(String info) {
+        isAutoIncrement = info;
+    }
+
+    public String getIsAutoIncrement() {
+        return isAutoIncrement;
+    }
+
+    public void setIsGenerated(String info) {
+        isAutoIncrement = info;
+    }
+
+    public String getIsGenerated() {
+        return isGenerated;
+    }
 }
