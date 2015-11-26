@@ -1,13 +1,18 @@
 package org.sharpsw.kraken.data;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Database {
-    private String productName;
-    private String productVersion;
-    private String schema;
-    private Integer minorVersion;
-    private Integer majorVersion;
-    private Integer minorJdbcVersion;
-    private Integer majorJdbcVersion;
+    private String productName = "";
+    private String productVersion = "";
+    private String schema = "";
+    private Integer minorVersion = 0;
+    private Integer majorVersion = 0;
+    private Integer minorJdbcVersion = 0;
+    private Integer majorJdbcVersion = 0;
+    private List<Table> tables = new ArrayList<>();
 
     public void setProductName(String name) {
         productName = name;
@@ -63,5 +68,13 @@ public class Database {
 
     public Integer getMajorJdbcVersion() {
         return majorJdbcVersion;
+    }
+
+    public void add(Table table) {
+        tables.add(table);
+    }
+
+    public List<Table> getTables() {
+        return Collections.unmodifiableList(tables);
     }
 }
