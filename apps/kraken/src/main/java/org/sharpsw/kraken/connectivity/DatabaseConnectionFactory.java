@@ -2,7 +2,6 @@ package org.sharpsw.kraken.connectivity;
 
 import org.apache.log4j.Logger;
 import org.sharpsw.kraken.configuration.DatabaseConfiguration;
-import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
