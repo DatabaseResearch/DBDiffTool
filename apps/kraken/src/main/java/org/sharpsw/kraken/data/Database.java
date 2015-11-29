@@ -10,9 +10,10 @@ public class Database {
     private String schema = "";
     private Integer minorVersion = 0;
     private Integer majorVersion = 0;
-    private Integer minorJdbcVersion = 0;
-    private Integer majorJdbcVersion = 0;
+    private Integer minorJDBCVersion = 0;
+    private Integer majorJDBCVersion = 0;
     private List<Table> tables = new ArrayList<>();
+    private List<Table> views = new ArrayList<>();
 
     public void setProductName(String name) {
         productName = name;
@@ -54,27 +55,35 @@ public class Database {
         return majorVersion;
     }
 
-    public void setMinorJdbcVersion(Integer version) {
-        minorJdbcVersion = version;
+    public void setMinorJDBCVersion(Integer version) {
+        minorJDBCVersion = version;
     }
 
-    public Integer getMinorJdbcVersion() {
-        return minorJdbcVersion;
+    public Integer getMinorJDBCVersion() {
+        return minorJDBCVersion;
     }
 
-    public void setMajorJdbcVersion(Integer version) {
-        majorJdbcVersion = version;
+    public void setMajorJDBCVersion(Integer version) {
+        majorJDBCVersion = version;
     }
 
-    public Integer getMajorJdbcVersion() {
-        return majorJdbcVersion;
+    public Integer getMajorJDBCVersion() {
+        return majorJDBCVersion;
     }
 
-    public void add(Table table) {
+    public void addTable(Table table) {
         tables.add(table);
     }
 
     public List<Table> getTables() {
         return tables;
+    }
+
+    public void addViews(Table view) {
+        views.add(view);
+    }
+
+    public List<Table> getViews() {
+        return views;
     }
 }

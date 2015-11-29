@@ -58,4 +58,13 @@ public enum SQLDataType {
     public String getName() {
         return name;
     }
+
+    public static SQLDataType findByType(int type) {
+        for(SQLDataType item : values()) {
+            if(item.getType() == type) {
+                return item;
+            }
+        }
+        return SQLDataType.BOOLEAN;
+    }
 }

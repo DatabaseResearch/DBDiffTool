@@ -36,4 +36,24 @@ public class Table {
     public PrimaryKey getPrimaryKey() {
         return primaryKey;
     }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if(this == other) {
+            return true;
+        }
+
+        if(!getClass().equals(other.getClass())) {
+            return false;
+        }
+
+        Table instance = (Table) other;
+
+        return getName().equals(instance.getName());
+    }
 }

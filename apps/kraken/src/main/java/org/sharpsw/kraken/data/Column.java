@@ -9,10 +9,11 @@ public class Column {
     private String typeName = "";
     private int size = 0;
     private int decimalDigits = 0;
+    private String defaultValue = "";
     private int ordinalPosition = 0;
-    private String isNullable = "";
-    private String isAutoIncrement = "";
-    private String isGenerated = "";
+    private boolean isNullable = false;
+    private boolean isAutoIncrement = false;
+    private boolean isGenerated = false;
 
     public void setName(String name) {
         this.name = name;
@@ -54,6 +55,14 @@ public class Column {
         return decimalDigits;
     }
 
+    public void setDefaultValue(String value) {
+        defaultValue = value;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
     public void setOrdinalPosition(int position) {
         ordinalPosition = position;
     }
@@ -62,27 +71,27 @@ public class Column {
         return ordinalPosition;
     }
 
-    public void setIsNullable(String info) {
+    public void setIsNullable(boolean info) {
         isNullable = info;
     }
 
-    public String getIsNullable() {
+    public boolean isNullable() {
         return isNullable;
     }
 
-    public void setIsAutoIncrement(String info) {
+    public void setIsAutoIncrement(boolean info) {
         isAutoIncrement = info;
     }
 
-    public String getIsAutoIncrement() {
+    public boolean isAutoIncrement() {
         return isAutoIncrement;
     }
 
-    public void setIsGenerated(String info) {
+    public void setIsGenerated(boolean info) {
         isAutoIncrement = info;
     }
 
-    public String getIsGenerated() {
+    public boolean isGenerated() {
         return isGenerated;
     }
 
