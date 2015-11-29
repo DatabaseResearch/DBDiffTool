@@ -71,6 +71,11 @@ public class SchemaLoader {
                 configureColumnSize(column, rs);
                 configureDecimalDigits(column, rs);
                 configureIsNullable(column, rs);
+                configureColumnDefaultValue(column, rs);
+                configureColumnPosition(column, rs);
+                configureColumnAutoIncrement(column, rs);
+                configureColumnTypeName(column, rs);
+                configureIsGenerated(column, rs);
             } catch (SQLException exception) {
                 throw new SchemaLoaderException(String.format("Error when loading the table columns: '%s'", exception.getMessage()), exception);
             }
@@ -105,6 +110,45 @@ public class SchemaLoader {
             column.setIsNullable(true);
         } else {
             column.setIsNullable(false);
+        }
+    }
+
+    private void configureColumnDefaultValue(Column column, ResultSet rs) throws SQLException {
+        String defaultValue = rs.getString("COLUMN_DEF");
+
+        if(defaultValue == null) {
+            column.setDefaultValue("null");
+        } else {
+            column.setDefaultValue(defaultValue);
+        }
+    }
+
+    private void configureColumnPosition(Column column, ResultSet rs) throws SQLException {
+        int position = rs.getInt("ORDINAL_POSITION");
+        column.setOrdinalPosition(position);
+    }
+
+    private void configureColumnAutoIncrement(Column column, ResultSet rs) throws SQLException {
+        String typeName = rs.getString("TYPE_NAME");
+        String isAutoIncrement = rs.getString("IS_AUTOINCREMENT");
+
+        if(isAutoIncrement != null && isAutoIncrement.equals("YES")) {
+            column.setIsAutoIncrement(true);
+        } else if(typeName != null && (typeName.contains("identity") || typeName.contains("COUNTER"))) {
+            column.setIsAutoIncrement(true);
+        } else {
+            column.setIsAutoIncrement(false);
+        }
+    }
+
+    private void configureColumnTypeName(Column column, ResultSet rs) throws SQLException {
+        column.setTypeName(rs.getString("TYPE_NAME"));
+    }
+
+    private void configureIsGenerated(Column column, ResultSet rs) throws SQLException {
+        String value = rs.getString("IS_GENERATEDCOLUMN");
+        if(value != null && "yes".equalsIgnoreCase(value)) {
+            column.setIsGenerated(true);
         }
     }
 }
