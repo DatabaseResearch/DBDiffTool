@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PrimaryKey {
     private String name = "";
-    private List<Column> columns = new LinkedList<>();
+    private List<String> columns = new LinkedList<>();
 
     public void setName(String name) {
         this.name = name;
@@ -15,11 +15,11 @@ public class PrimaryKey {
         return name;
     }
 
-    public void add(Column column) {
+    public void add(String column) {
         columns.add(column);
     }
 
-    public List<Column> getColumns() {
+    public List<String> getColumns() {
         return columns;
     }
 
