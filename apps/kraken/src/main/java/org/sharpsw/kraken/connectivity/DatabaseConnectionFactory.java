@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-@Component
 public class DatabaseConnectionFactory {
     private static final Logger logger = Logger.getLogger(DatabaseConnectionFactory.class);
 

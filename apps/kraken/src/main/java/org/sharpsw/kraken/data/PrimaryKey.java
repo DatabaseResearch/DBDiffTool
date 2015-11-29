@@ -3,11 +3,9 @@ package org.sharpsw.kraken.data;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Table {
+public class PrimaryKey {
     private String name = "";
-    private String remarks = "";
     private List<Column> columns = new LinkedList<>();
-    private PrimaryKey primaryKey = new PrimaryKey();
 
     public void setName(String name) {
         this.name = name;
@@ -15,14 +13,6 @@ public class Table {
 
     public String getName() {
         return name;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public String getRemarks() {
-        return remarks;
     }
 
     public void add(Column column) {
@@ -33,7 +23,22 @@ public class Table {
         return columns;
     }
 
-    public PrimaryKey getPrimaryKey() {
-        return primaryKey;
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if(this == other) {
+            return true;
+        }
+
+        if(!getClass().equals(other.getClass())) {
+            return false;
+        }
+
+        PrimaryKey instance = (PrimaryKey) other;
+        return getName().equals(instance.getName());
     }
 }

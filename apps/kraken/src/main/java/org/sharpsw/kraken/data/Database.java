@@ -75,6 +75,6 @@ public class Database {
     }
 
     public List<Table> getTables() {
-        return Collections.unmodifiableList(tables);
+        return tables;
     }
 }

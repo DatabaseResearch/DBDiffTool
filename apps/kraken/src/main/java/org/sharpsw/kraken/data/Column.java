@@ -85,4 +85,23 @@ public class Column {
     public String getIsGenerated() {
         return isGenerated;
     }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if(this == other) {
+            return true;
+        }
+
+        if(!getClass().equals(other.getClass())) {
+            return false;
+        }
+
+        Column instance = (Column) other;
+        return getName().equals(instance.getName());
+    }
 }
