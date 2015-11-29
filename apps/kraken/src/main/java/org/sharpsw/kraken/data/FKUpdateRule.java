@@ -2,7 +2,7 @@ package org.sharpsw.kraken.data;
 
 import java.sql.DatabaseMetaData;
 
-public enum FKDeleteRule {
+public enum FKUpdateRule {
 
     NO_ACTION(DatabaseMetaData.importedKeyNoAction, "No action"),
     CASCADE(DatabaseMetaData.importedKeyCascade, "Cascade"),
@@ -13,7 +13,7 @@ public enum FKDeleteRule {
     private int code;
     private String name;
 
-    private FKDeleteRule(int code, String name) {
+    private FKUpdateRule(int code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -26,8 +26,8 @@ public enum FKDeleteRule {
         return name;
     }
 
-    public FKDeleteRule findById(int code) {
-        for(FKDeleteRule rule : values()) {
+    public FKUpdateRule findById(int code) {
+        for(FKUpdateRule rule : values()) {
             if(rule.getCode() == code) {
                 return rule;
             }
