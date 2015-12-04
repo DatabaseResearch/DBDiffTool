@@ -37,6 +37,10 @@ public class Table {
         return primaryKey;
     }
 
+    public void setPrimaryKey(PrimaryKey key) {
+        primaryKey = key;
+    }
+
     @Override
     public int hashCode() {
         return name.hashCode();
