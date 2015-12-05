@@ -28,14 +28,15 @@ public class SchemaLoaderTestCase {
     public void setup() {
         configuration = new MySQLConfiguration();
         configuration.setHost("localhost");
-        configuration.setSchema("dbdiff");
         configuration.setPort(3306);
+
+        configuration.setSchema("dbdiff");
         configuration.setUser("dbdiff");
         configuration.setPassword("dbdiff");
     }
 
     @Test
-    public void testLoadSchemaOK() throws SQLException, DatabaseConnectionException, SchemaLoaderException {
+    public void testLoadEmptySchemaOK() throws SQLException, DatabaseConnectionException, SchemaLoaderException {
         Database database = schemaLoader.load(configuration);
         Assert.assertThat(database.getProductName(), Matchers.is("MySQL"));
         Assert.assertThat(database.getSchema(), Matchers.is("dbdiff"));
