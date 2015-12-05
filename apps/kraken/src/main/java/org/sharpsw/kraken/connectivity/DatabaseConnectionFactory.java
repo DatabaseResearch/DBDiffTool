@@ -18,7 +18,7 @@ public class DatabaseConnectionFactory {
         }
 
         try {
-            Class.forName(configuration.getConnectionString());
+            Class.forName(configuration.getJdbcDriverClassname());
             return DriverManager.getConnection(configuration.getConnectionString());
         } catch (SQLException | ClassNotFoundException exception) {
             logger.error(String.format("Error when creating a new database connection: %s", exception.getMessage()), exception);
