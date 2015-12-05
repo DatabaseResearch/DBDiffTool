@@ -26,7 +26,7 @@ public enum FKUpdateRule {
         return name;
     }
 
-    public FKUpdateRule findById(int code) {
+    public static FKUpdateRule findById(int code) {
         for(FKUpdateRule rule : values()) {
             if(rule.getCode() == code) {
                 return rule;

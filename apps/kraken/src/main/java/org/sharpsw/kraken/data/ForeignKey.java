@@ -1,11 +1,13 @@
 package org.sharpsw.kraken.data;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class ForeignKey {
     private String name = "";
     private String primaryKeyTable = "";
-    private String primaryKeyColumn = "";
-    private String foreignKeyColumn = "";
-    private short keySequence = 0;
+    private List<ForeignKeyData> keys = new LinkedList<>();
+
     private FKUpdateRule updateRule = FKUpdateRule.NO_ACTION;
     private FKDeleteRule deleteRule = FKDeleteRule.NO_ACTION;
     private Deferrability deferrability = Deferrability.NOT_DEFERRABLE;
@@ -26,28 +28,12 @@ public class ForeignKey {
         return primaryKeyTable;
     }
 
-    public void setPrimaryKeyColumn(String column) {
-        primaryKeyColumn = column;
+    public void add(ForeignKeyData data) {
+        keys.add(data);
     }
 
-    public String getPrimaryKeyColumn() {
-        return primaryKeyColumn;
-    }
-
-    public void setForeignKeyColumn(String column) {
-        foreignKeyColumn = column;
-    }
-
-    public String getForeignKeyColumn() {
-        return foreignKeyColumn;
-    }
-
-    public void setKeySequence(short sequence) {
-        keySequence = sequence;
-    }
-
-    public short getKeySequence() {
-        return keySequence;
+    public List<ForeignKeyData> getKeys() {
+        return keys;
     }
 
     public void setFKDeleteRule(FKDeleteRule rule) {

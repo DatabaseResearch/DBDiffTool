@@ -23,7 +23,7 @@ public enum Deferrability {
         return name;
     }
 
-    public Deferrability findByCode(int code) {
+    public static Deferrability findByCode(int code) {
         for(Deferrability rule : values()) {
             if(rule.getCode() == code) {
                 return rule;

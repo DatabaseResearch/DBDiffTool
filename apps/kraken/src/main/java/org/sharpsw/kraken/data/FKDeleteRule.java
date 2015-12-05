@@ -26,7 +26,7 @@ public enum FKDeleteRule {
         return name;
     }
 
-    public FKDeleteRule findById(int code) {
+    public static FKDeleteRule findById(int code) {
         for(FKDeleteRule rule : values()) {
             if(rule.getCode() == code) {
                 return rule;

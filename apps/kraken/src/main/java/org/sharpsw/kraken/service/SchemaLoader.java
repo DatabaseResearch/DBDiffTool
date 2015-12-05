@@ -25,6 +25,9 @@ public class SchemaLoader {
     @Resource
     private PrimaryKeyLoader primaryKeyLoader;
 
+    @Resource
+    private ForeignKeyLoader foreignKeyLoader;
+
     public Database load(Connection connection) throws SchemaLoaderException {
         Database database = new Database();
         try {
@@ -32,6 +35,7 @@ public class SchemaLoader {
             tableLoader.load(database, connection.getMetaData());
             columnLoader.load(database, connection.getMetaData());
             primaryKeyLoader.load(database, connection.getMetaData());
+            foreignKeyLoader.load(database, connection.getMetaData());
         } catch (SQLException exception) {
             throw new SchemaLoaderException(String.format("Error when retrieving database metadata: '%s'", exception.getMessage()), exception);
         } finally {
