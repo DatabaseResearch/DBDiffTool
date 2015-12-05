@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.sharpsw.kraken.configuration.DatabaseConfiguration;
 import org.sharpsw.kraken.configuration.MySQLConfiguration;
 import org.sharpsw.kraken.connectivity.DatabaseConnectionException;
-import org.sharpsw.kraken.connectivity.DatabaseConnectionFactory;
 import org.sharpsw.kraken.data.Database;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
