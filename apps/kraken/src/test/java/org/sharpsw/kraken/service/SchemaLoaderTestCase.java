@@ -1,5 +1,6 @@
 package org.sharpsw.kraken.service;
 
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,9 +22,6 @@ public class SchemaLoaderTestCase {
 
     @Resource
     private SchemaLoader schemaLoader;
-
-    @Resource
-    private DatabaseConnectionFactory databaseConnectionFactory;
 
     private DatabaseConfiguration configuration;
 
@@ -40,8 +37,8 @@ public class SchemaLoaderTestCase {
 
     @Test
     public void testLoadSchemaOK() throws SQLException, DatabaseConnectionException, SchemaLoaderException {
-        Connection connection = databaseConnectionFactory.createConnection(configuration);
-        Database database = schemaLoader.load(connection);
-
+        Database database = schemaLoader.load(configuration);
+        Assert.assertThat(database.getProductName(), Matchers.is("MySQL"));
+        Assert.assertThat(database.getSchema(), Matchers.is("dbdiff"));
     }
 }
