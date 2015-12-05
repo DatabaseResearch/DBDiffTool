@@ -39,5 +39,7 @@ public class SchemaLoaderTestCase {
         Database database = schemaLoader.load(configuration);
         Assert.assertThat(database.getProductName(), Matchers.is("MySQL"));
         Assert.assertThat(database.getSchema(), Matchers.is("dbdiff"));
+        Assert.assertThat(database.getTables(), Matchers.empty());
+        Assert.assertThat(database.getViews(), Matchers.empty());
     }
 }
