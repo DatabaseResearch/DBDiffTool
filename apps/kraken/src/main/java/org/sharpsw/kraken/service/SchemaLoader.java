@@ -12,7 +12,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Service
+@Component
 public class SchemaLoader {
     private static final Logger logger = Logger.getLogger(SchemaLoader.class);
 
