@@ -50,7 +50,7 @@ public class SchemaLoaderTestCase {
     }
 
     @Test
-    public void testLoadDBDiffUT1SchemaOK() throws SQLException, DatabaseConnectionException, SchemaLoaderException {
+    public void testLoadSchemaOK() throws SQLException, DatabaseConnectionException, SchemaLoaderException {
         configuration.setSchema("dbdiffut1");
         Database database = schemaLoader.load(configuration);
         assertThat(database.getProductName(), is("MySQL"));
@@ -67,10 +67,35 @@ public class SchemaLoaderTestCase {
         assertThat(table.getForeignKeys(), notNullValue());
 
 
-        Column col1 = table.getColumns().get(0);
-        assertThat(col1.getName(), is("id"));
-        assertThat(col1.getDataType(), is(INTEGER));
-        assertThat(col1.getOrdinalPosition(), equalTo(1));
-        assertThat(col1.getDefaultValue(), is("null"));
+        //Column col1 = table.getColumns().get(0);
+        //assertThat(col1.getName(), is("id"));
+        //assertThat(col1.getDataType(), is(INTEGER));
+        //assertThat(col1.getOrdinalPosition(), equalTo(1));
+        //assertThat(col1.getDefaultValue(), is("null"));
+        //assertThat(col1.getDecimalDigits(), equalTo(0));
+        //assertThat(col1.getSize(), equalTo(10));
+        //assertThat(col1.getTypeName(), is("INT"));
+    }
+
+    @Test
+    public void testLoadTablesOK() throws SQLException, SchemaLoaderException {
+        configuration.setSchema("dbdiffut1");
+        Database database = schemaLoader.load(configuration);
+        assertThat(database.getTables(), not(empty()));
+        assertThat(database.getTables().size(), equalTo(1));
+
+        List<Table> tables = database.getTables();
+        Table table = tables.get(0);
+        assertThat(table.getName(), is("table001"));
+
+        assertThat(table.getColumns(), not(empty()));
+        assertThat(table.getColumns().size(), equalTo(2));
+
+        assertThat(table.getRemarks(), isEmptyString());
+
+        assertThat(table.getForeignKeys(), notNullValue());
+        assertThat(table.getForeignKeys().size(), equalTo(0));
+
+        assertThat(table.getPrimaryKey(), notNullValue());
     }
 }
