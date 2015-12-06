@@ -19,17 +19,21 @@ public class ColumnLoader {
     public void load(Database database, DatabaseMetaData metadata) throws SchemaLoaderException {
         for(Table table : database.getTables()) {
             try (ResultSet rs = metadata.getColumns(null, null, table.getName(), "%")) {
-                Column column = new Column();
-                configureColumnName(column, rs);
-                configureColumnDataType(column, rs);
-                configureColumnSize(column, rs);
-                configureDecimalDigits(column, rs);
-                configureIsNullable(column, rs);
-                configureColumnDefaultValue(column, rs);
-                configureColumnPosition(column, rs);
-                configureColumnAutoIncrement(column, rs);
-                configureColumnTypeName(column, rs);
-                configureIsGenerated(column, rs);
+                while(rs.next()) {
+                    Column column = new Column();
+                    configureColumnName(column, rs);
+                    configureColumnDataType(column, rs);
+                    configureColumnSize(column, rs);
+                    configureDecimalDigits(column, rs);
+                    configureIsNullable(column, rs);
+                    configureColumnDefaultValue(column, rs);
+                    configureColumnPosition(column, rs);
+                    configureColumnAutoIncrement(column, rs);
+                    configureColumnTypeName(column, rs);
+                    configureIsGenerated(column, rs);
+
+                    table.add(column);
+                }
             } catch (SQLException exception) {
                 throw new SchemaLoaderException(String.format("Error when loading the table columns: '%s'", exception.getMessage()), exception);
             }
