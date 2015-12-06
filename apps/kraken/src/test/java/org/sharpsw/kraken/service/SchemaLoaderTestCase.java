@@ -19,6 +19,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.sharpsw.kraken.data.SQLDataType.INTEGER;
+import static org.sharpsw.kraken.data.SQLDataType.VARCHAR;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:**/applicationContext.xml"})
@@ -67,14 +68,7 @@ public class SchemaLoaderTestCase {
         assertThat(table.getForeignKeys(), notNullValue());
 
 
-        //Column col1 = table.getColumns().get(0);
-        //assertThat(col1.getName(), is("id"));
-        //assertThat(col1.getDataType(), is(INTEGER));
-        //assertThat(col1.getOrdinalPosition(), equalTo(1));
-        //assertThat(col1.getDefaultValue(), is("null"));
-        //assertThat(col1.getDecimalDigits(), equalTo(0));
-        //assertThat(col1.getSize(), equalTo(10));
-        //assertThat(col1.getTypeName(), is("INT"));
+
     }
 
     @Test
@@ -97,5 +91,35 @@ public class SchemaLoaderTestCase {
         assertThat(table.getForeignKeys().size(), equalTo(0));
 
         assertThat(table.getPrimaryKey(), notNullValue());
+    }
+
+    @Test
+    public void testLoadColumnsOK() throws SQLException, SchemaLoaderException {
+        configuration.setSchema("dbdiffut1");
+        Database database = schemaLoader.load(configuration);
+
+        List<Table> tables = database.getTables();
+        Table table = tables.get(0);
+
+        assertThat(table.getColumns(), not(empty()));
+        assertThat(table.getColumns().size(), equalTo(2));
+
+        Column idColumn = table.getColumns().get(0);
+        assertThat(idColumn.getName(), is("id"));
+        assertThat(idColumn.getDataType(), is(INTEGER));
+        assertThat(idColumn.getOrdinalPosition(), equalTo(1));
+        assertThat(idColumn.getDefaultValue(), is("null"));
+        assertThat(idColumn.getDecimalDigits(), equalTo(0));
+        assertThat(idColumn.getSize(), equalTo(10));
+        assertThat(idColumn.getTypeName(), is("INT"));
+
+        Column nameColumn = table.getColumns().get(1);
+        assertThat(nameColumn.getName(), is("name"));
+        assertThat(nameColumn.getDataType(), is(VARCHAR));
+        assertThat(nameColumn.getOrdinalPosition(), equalTo(2));
+        assertThat(nameColumn.getDefaultValue(), is("null"));
+        assertThat(nameColumn.getDecimalDigits(), equalTo(0));
+        assertThat(nameColumn.getSize(), equalTo(50));
+        assertThat(nameColumn.getTypeName(), is("VARCHAR"));
     }
 }
