@@ -1,6 +1,5 @@
 package org.sharpsw.kraken.service;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +8,6 @@ import org.sharpsw.kraken.configuration.MySQLConfiguration;
 import org.sharpsw.kraken.connectivity.DatabaseConnectionException;
 import org.sharpsw.kraken.data.Column;
 import org.sharpsw.kraken.data.Database;
-import org.sharpsw.kraken.data.SQLDataType;
 import org.sharpsw.kraken.data.Table;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -20,7 +18,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
-import static org.sharpsw.kraken.data.SQLDataType.BIGINT;
+import static org.sharpsw.kraken.data.SQLDataType.INTEGER;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:**/applicationContext.xml"})
@@ -65,9 +63,14 @@ public class SchemaLoaderTestCase {
         assertThat(table.getName(), is("table001"));
         assertThat(table.getColumns(), not(empty()));
         assertThat(table.getColumns().size(), equalTo(2));
+        assertThat(table.getRemarks(), isEmptyString());
+        assertThat(table.getForeignKeys(), notNullValue());
+
 
         Column col1 = table.getColumns().get(0);
         assertThat(col1.getName(), is("id"));
-        assertThat(col1.getDataType(), is(BIGINT));
+        assertThat(col1.getDataType(), is(INTEGER));
+        assertThat(col1.getOrdinalPosition(), equalTo(1));
+        assertThat(col1.getDefaultValue(), is("null"));
     }
 }
