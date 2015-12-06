@@ -1,0 +1,6 @@
+CREATE TABLE Table001 (
+    id BIGINT NOT NULL PRIMARY KEY,
+    name VARCHAR (30),
+    personType CHAR(1) NOT NULL DEFAULT 'a',
+    taxpayerId INT NOT NULL UNIQUE
+)

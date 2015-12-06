@@ -8,6 +8,7 @@ import org.sharpsw.kraken.configuration.MySQLConfiguration;
 import org.sharpsw.kraken.connectivity.DatabaseConnectionException;
 import org.sharpsw.kraken.data.Column;
 import org.sharpsw.kraken.data.Database;
+import org.sharpsw.kraken.data.PrimaryKey;
 import org.sharpsw.kraken.data.Table;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -22,8 +23,8 @@ import static org.sharpsw.kraken.data.SQLDataType.INTEGER;
 import static org.sharpsw.kraken.data.SQLDataType.VARCHAR;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:**/applicationContext.xml"})
-public class SchemaLoaderTestCase {
+@ContextConfiguration(locations = {"classpath:**/applicationContext4UnitTesting.xml"})
+public class SchemaLoaderTestCase1 {
 
     @Resource
     private SchemaLoader schemaLoader;
@@ -66,9 +67,6 @@ public class SchemaLoaderTestCase {
         assertThat(table.getColumns().size(), equalTo(2));
         assertThat(table.getRemarks(), isEmptyString());
         assertThat(table.getForeignKeys(), notNullValue());
-
-
-
     }
 
     @Test
@@ -82,15 +80,7 @@ public class SchemaLoaderTestCase {
         Table table = tables.get(0);
         assertThat(table.getName(), is("table001"));
 
-        assertThat(table.getColumns(), not(empty()));
-        assertThat(table.getColumns().size(), equalTo(2));
-
         assertThat(table.getRemarks(), isEmptyString());
-
-        assertThat(table.getForeignKeys(), notNullValue());
-        assertThat(table.getForeignKeys().size(), equalTo(0));
-
-        assertThat(table.getPrimaryKey(), notNullValue());
     }
 
     @Test
@@ -121,5 +111,21 @@ public class SchemaLoaderTestCase {
         assertThat(nameColumn.getDecimalDigits(), equalTo(0));
         assertThat(nameColumn.getSize(), equalTo(50));
         assertThat(nameColumn.getTypeName(), is("VARCHAR"));
+    }
+
+    @Test
+    public void testPrimaryKeyLoadingOK() throws SQLException, SchemaLoaderException {
+        configuration.setSchema("dbdiffut1");
+        Database database = schemaLoader.load(configuration);
+
+        List<Table> tables = database.getTables();
+        Table table = tables.get(0);
+
+        PrimaryKey pk = table.getPrimaryKey();
+        assertThat(pk, notNullValue());
+        assertThat(pk.getName(), is("PRIMARY"));
+        assertThat(pk.getColumns(), not(empty()));
+        assertThat(pk.getColumns().size(), is(1));
+        assertThat(pk.getColumns().get(0), is("id"));
     }
 }
