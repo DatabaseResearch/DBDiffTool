@@ -17,9 +17,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
-import static org.sharpsw.kraken.data.SQLDataType.BIGINT;
-import static org.sharpsw.kraken.data.SQLDataType.INTEGER;
-import static org.sharpsw.kraken.data.SQLDataType.VARCHAR;
+import static org.sharpsw.kraken.data.SQLDataType.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:**/applicationContext4UnitTesting.xml"})
@@ -168,5 +166,50 @@ public class SchemaLoaderTestCase {
         assertThat(name.isNullable(), equalTo(true));
         assertThat(name.isGenerated(), equalTo(false));
         assertThat(name.isAutoIncrement(), equalTo(false));
+    }
+
+    @Test
+    public void testCharWithDefaultValueOK() throws SQLException, SchemaLoaderException {
+        configuration.setSchema("TestCase2");
+        Database database = schemaLoader.load(configuration);
+
+        List<Table> tables = database.getTables();
+        Table table = tables.get(0);
+
+        Column personType = table.getColumns().get(2);
+
+        assertThat(personType.getName(), is("personType"));
+        assertThat(personType.getTypeName(), is("CHAR"));
+        assertThat(personType.getOrdinalPosition(), equalTo(3));
+        assertThat(personType.getSize(), equalTo(1));
+        assertThat(personType.getDataType(), is(CHAR));
+        assertThat(personType.getDecimalDigits(), equalTo(0));
+        assertThat(personType.getDefaultValue(), is("a"));
+        assertThat(personType.isNullable(), equalTo(false));
+        assertThat(personType.isGenerated(), equalTo(false));
+        assertThat(personType.isAutoIncrement(), equalTo(false));
+    }
+
+
+    @Test
+    public void testIntegerNotNullUniqueOK() throws SQLException, SchemaLoaderException {
+        configuration.setSchema("TestCase2");
+        Database database = schemaLoader.load(configuration);
+
+        List<Table> tables = database.getTables();
+        Table table = tables.get(0);
+
+        Column taxpayerId = table.getColumns().get(3);
+
+        assertThat(taxpayerId.getName(), is("taxpayerId"));
+        assertThat(taxpayerId.getTypeName(), is("INT"));
+        assertThat(taxpayerId.getOrdinalPosition(), equalTo(4));
+        assertThat(taxpayerId.getSize(), equalTo(10));
+        assertThat(taxpayerId.getDataType(), is(INTEGER));
+        assertThat(taxpayerId.getDecimalDigits(), equalTo(0));
+        assertThat(taxpayerId.getDefaultValue(), is("null"));
+        assertThat(taxpayerId.isNullable(), equalTo(false));
+        assertThat(taxpayerId.isGenerated(), equalTo(false));
+        assertThat(taxpayerId.isAutoIncrement(), equalTo(false));
     }
 }
