@@ -6,25 +6,24 @@ import org.junit.runner.RunWith;
 import org.sharpsw.kraken.configuration.DatabaseConfiguration;
 import org.sharpsw.kraken.configuration.MySQLConfiguration;
 import org.sharpsw.kraken.connectivity.DatabaseConnectionException;
-import org.sharpsw.kraken.data.Column;
-import org.sharpsw.kraken.data.Database;
-import org.sharpsw.kraken.data.PrimaryKey;
-import org.sharpsw.kraken.data.Table;
+import org.sharpsw.kraken.data.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import javax.xml.validation.Schema;
 import java.sql.SQLException;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
+import static org.sharpsw.kraken.data.SQLDataType.BIGINT;
 import static org.sharpsw.kraken.data.SQLDataType.INTEGER;
 import static org.sharpsw.kraken.data.SQLDataType.VARCHAR;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:**/applicationContext4UnitTesting.xml"})
-public class SchemaLoaderTestCase1 {
+public class SchemaLoaderTestCase {
 
     @Resource
     private SchemaLoader schemaLoader;
@@ -127,5 +126,47 @@ public class SchemaLoaderTestCase1 {
         assertThat(pk.getColumns(), not(empty()));
         assertThat(pk.getColumns().size(), is(1));
         assertThat(pk.getColumns().get(0), is("id"));
+    }
+
+    @Test
+    public void testBigIntegerColumnOK() throws SQLException, SchemaLoaderException {
+        configuration.setSchema("TestCase2");
+        Database database = schemaLoader.load(configuration);
+
+        List<Table> tables = database.getTables();
+        Table table = tables.get(0);
+
+        Column id = table.getColumns().get(0);
+        assertThat(id.getName(), is("id"));
+        assertThat(id.getTypeName(), is("BIGINT"));
+        assertThat(id.getOrdinalPosition(), equalTo(1));
+        assertThat(id.getSize(), equalTo(19));
+        assertThat(id.getDataType(), is(BIGINT));
+        assertThat(id.getDecimalDigits(), equalTo(0));
+        assertThat(id.getDefaultValue(), is("null"));
+        assertThat(id.isAutoIncrement(), equalTo(false));
+        assertThat(id.isGenerated(), equalTo(false));
+        assertThat(id.isNullable(), equalTo(false));
+    }
+
+    @Test
+    public void testVarcharNullableOK() throws SQLException, SchemaLoaderException {
+        configuration.setSchema("TestCase2");
+        Database database = schemaLoader.load(configuration);
+
+        List<Table> tables = database.getTables();
+        Table table = tables.get(0);
+
+        Column name = table.getColumns().get(1);
+        assertThat(name.getName(), is("name"));
+        assertThat(name.getTypeName(), is("VARCHAR"));
+        assertThat(name.getOrdinalPosition(), equalTo(2));
+        assertThat(name.getSize(), equalTo(30));
+        assertThat(name.getDataType(), is(VARCHAR));
+        assertThat(name.getDecimalDigits(), equalTo(0));
+        assertThat(name.getDefaultValue(), is("null"));
+        assertThat(name.isNullable(), equalTo(true));
+        assertThat(name.isGenerated(), equalTo(false));
+        assertThat(name.isAutoIncrement(), equalTo(false));
     }
 }
