@@ -6,12 +6,14 @@ import org.junit.runner.RunWith;
 import org.sharpsw.kraken.configuration.DatabaseConfiguration;
 import org.sharpsw.kraken.configuration.MySQLConfiguration;
 import org.sharpsw.kraken.connectivity.DatabaseConnectionException;
-import org.sharpsw.kraken.data.*;
+import org.sharpsw.kraken.data.Column;
+import org.sharpsw.kraken.data.Database;
+import org.sharpsw.kraken.data.PrimaryKey;
+import org.sharpsw.kraken.data.Table;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import javax.xml.validation.Schema;
 import java.sql.SQLException;
 import java.util.List;
 
