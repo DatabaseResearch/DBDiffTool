@@ -145,6 +145,7 @@ public class SchemaLoaderTestCase {
         assertThat(id.isAutoIncrement(), equalTo(false));
         assertThat(id.isGenerated(), equalTo(false));
         assertThat(id.isNullable(), equalTo(false));
+        assertThat("Field id uniqueness is must be true", id.isUnique(), equalTo(true));
     }
 
     @Test
@@ -166,6 +167,7 @@ public class SchemaLoaderTestCase {
         assertThat(name.isNullable(), equalTo(true));
         assertThat(name.isGenerated(), equalTo(false));
         assertThat(name.isAutoIncrement(), equalTo(false));
+        assertThat(name.isUnique(), equalTo(false));
     }
 
     @Test
@@ -188,6 +190,7 @@ public class SchemaLoaderTestCase {
         assertThat(personType.isNullable(), equalTo(false));
         assertThat(personType.isGenerated(), equalTo(false));
         assertThat(personType.isAutoIncrement(), equalTo(false));
+        assertThat(personType.isUnique(), equalTo(false));
     }
 
 
@@ -211,5 +214,6 @@ public class SchemaLoaderTestCase {
         assertThat(taxpayerId.isNullable(), equalTo(false));
         assertThat(taxpayerId.isGenerated(), equalTo(false));
         assertThat(taxpayerId.isAutoIncrement(), equalTo(false));
+        assertThat(taxpayerId.isUnique(), equalTo(true));
     }
 }

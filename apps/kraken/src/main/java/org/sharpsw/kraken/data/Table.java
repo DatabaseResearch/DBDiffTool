@@ -52,6 +52,16 @@ public class Table {
         return foreignKeys;
     }
 
+    public Column findByName(String name) {
+        for(Column column : columns) {
+            if(column.getName().equals(name)) {
+                return column;
+            }
+        }
+
+        return null;
+    }
+
     @Override
     public int hashCode() {
         return name.hashCode();

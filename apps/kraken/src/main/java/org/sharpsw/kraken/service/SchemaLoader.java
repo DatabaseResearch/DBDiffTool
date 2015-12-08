@@ -26,6 +26,9 @@ public class SchemaLoader {
     private ColumnLoader columnLoader;
 
     @Resource
+    private UniqueConstraintLoader uniqueConstraintLoader;
+
+    @Resource
     private PrimaryKeyLoader primaryKeyLoader;
 
     @Resource
@@ -43,6 +46,7 @@ public class SchemaLoader {
             loadSchemaInformation(database, connection.getMetaData());
             tableLoader.load(database, connection.getMetaData());
             columnLoader.load(database, connection.getMetaData());
+            uniqueConstraintLoader.load(database, connection.getMetaData());
             primaryKeyLoader.load(database, connection.getMetaData());
             foreignKeyLoader.load(database, connection.getMetaData());
         } catch (SQLException | DatabaseConnectionException exception) {
