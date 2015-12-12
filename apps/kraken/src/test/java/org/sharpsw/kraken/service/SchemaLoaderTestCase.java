@@ -132,9 +132,7 @@ public class SchemaLoaderTestCase {
     public void testBigIntegerColumnOK() throws SQLException, SchemaLoaderException {
         configuration.setSchema("TestCase2");
         Database database = schemaLoader.load(configuration);
-
-        List<Table> tables = database.getTables();
-        Table table = tables.get(0);
+        Table table = database.findByName("Table001");
 
         Column id = table.getColumns().get(0);
         assertThat(id.getName(), is("id"));
@@ -154,9 +152,7 @@ public class SchemaLoaderTestCase {
     public void testVarcharNullableOK() throws SQLException, SchemaLoaderException {
         configuration.setSchema("TestCase2");
         Database database = schemaLoader.load(configuration);
-
-        List<Table> tables = database.getTables();
-        Table table = tables.get(0);
+        Table table = database.findByName("Table001");
 
         Column name = table.getColumns().get(1);
         assertThat(name.getName(), is("name"));
@@ -176,9 +172,7 @@ public class SchemaLoaderTestCase {
     public void testCharWithDefaultValueOK() throws SQLException, SchemaLoaderException {
         configuration.setSchema("TestCase2");
         Database database = schemaLoader.load(configuration);
-
-        List<Table> tables = database.getTables();
-        Table table = tables.get(0);
+        Table table = database.findByName("Table001");
 
         Column personType = table.getColumns().get(2);
 
@@ -200,9 +194,7 @@ public class SchemaLoaderTestCase {
     public void testIntegerNotNullUniqueOK() throws SQLException, SchemaLoaderException {
         configuration.setSchema("TestCase2");
         Database database = schemaLoader.load(configuration);
-
-        List<Table> tables = database.getTables();
-        Table table = tables.get(0);
+        Table table = database.findByName("Table001");
 
         Column taxpayerId = table.getColumns().get(3);
 
