@@ -6,10 +6,7 @@ import org.junit.runner.RunWith;
 import org.sharpsw.kraken.configuration.DatabaseConfiguration;
 import org.sharpsw.kraken.configuration.MySQLConfiguration;
 import org.sharpsw.kraken.connectivity.DatabaseConnectionException;
-import org.sharpsw.kraken.data.Column;
-import org.sharpsw.kraken.data.Database;
-import org.sharpsw.kraken.data.PrimaryKey;
-import org.sharpsw.kraken.data.Table;
+import org.sharpsw.kraken.data.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -209,5 +206,26 @@ public class SchemaLoaderTestCase {
         assertThat(taxpayerId.isGenerated(), equalTo(false));
         assertThat(taxpayerId.isAutoIncrement(), equalTo(false));
         assertThat(taxpayerId.isUnique(), equalTo(true));
+    }
+
+    @Test
+    public void testSmallintNotNullPrimaryKeyAutoIncrementOK() throws SQLException, SchemaLoaderException {
+        configuration.setSchema("TestCase2");
+        Database database = schemaLoader.load(configuration);
+        Table table = database.findByName("Table002");
+
+        Column id = table.getColumns().get(0);
+
+        assertThat(id.getName(), is("id"));
+        assertThat(id.getTypeName(), is("SMALLINT"));
+        assertThat(id.getOrdinalPosition(), equalTo(1));
+        assertThat(id.getSize(), equalTo(5));
+        assertThat(id.getDataType(), is(SMALLINT));
+        assertThat(id.getDecimalDigits(), equalTo(0));
+        assertThat(id.getDefaultValue(), is("null"));
+        assertThat(id.isNullable(), equalTo(false));
+        assertThat(id.isGenerated(), equalTo(false));
+        assertThat(id.isAutoIncrement(), equalTo(true));
+        assertThat(id.isUnique(), equalTo(true));
     }
 }
