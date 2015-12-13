@@ -228,4 +228,46 @@ public class SchemaLoaderTestCase {
         assertThat(id.isAutoIncrement(), equalTo(true));
         assertThat(id.isUnique(), equalTo(true));
     }
+
+    @Test
+    public void testNotNullVarcharOK() throws SchemaLoaderException, SQLException {
+        configuration.setSchema("TestCase2");
+        Database database = schemaLoader.load(configuration);
+        Table table = database.findByName("Table002");
+
+        Column name = table.getColumns().get(1);
+
+        assertThat(name.getName(), is("name"));
+        assertThat(name.getTypeName(), is("VARCHAR"));
+        assertThat(name.getOrdinalPosition(), equalTo(2));
+        assertThat(name.getSize(), equalTo(23));
+        assertThat(name.getDataType(), is(VARCHAR));
+        assertThat(name.getDecimalDigits(), equalTo(0));
+        assertThat(name.getDefaultValue(), is("null"));
+        assertThat(name.isNullable(), equalTo(false));
+        assertThat(name.isGenerated(), equalTo(false));
+        assertThat(name.isAutoIncrement(), equalTo(false));
+        assertThat(name.isUnique(), equalTo(false));
+    }
+
+    @Test
+    public void testDecimalColumnNotNullOK() throws SQLException, SchemaLoaderException {
+        configuration.setSchema("TestCase2");
+        Database database = schemaLoader.load(configuration);
+        Table table = database.findByName("Table002");
+
+        Column column = table.getColumns().get(2);
+
+        assertThat(column.getName(), is("salary"));
+        assertThat(column.getTypeName(), is("DECIMAL"));
+        assertThat(column.getOrdinalPosition(), equalTo(3));
+        assertThat(column.getSize(), equalTo(10));
+        assertThat(column.getDataType(), is(DECIMAL));
+        assertThat(column.getDecimalDigits(), equalTo(3));
+        assertThat(column.getDefaultValue(), is("null"));
+        assertThat(column.isNullable(), equalTo(false));
+        assertThat(column.isGenerated(), equalTo(false));
+        assertThat(column.isAutoIncrement(), equalTo(false));
+        assertThat(column.isUnique(), equalTo(false));
+    }
 }
