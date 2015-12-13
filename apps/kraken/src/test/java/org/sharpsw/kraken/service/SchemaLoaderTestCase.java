@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import javax.xml.validation.Schema;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -266,6 +267,27 @@ public class SchemaLoaderTestCase {
         assertThat(column.getDecimalDigits(), equalTo(3));
         assertThat(column.getDefaultValue(), is("null"));
         assertThat(column.isNullable(), equalTo(false));
+        assertThat(column.isGenerated(), equalTo(false));
+        assertThat(column.isAutoIncrement(), equalTo(false));
+        assertThat(column.isUnique(), equalTo(false));
+    }
+
+    @Test
+    public void testDateTimeNullableOK() throws SQLException, SchemaLoaderException {
+        configuration.setSchema("TestCase2");
+        Database database = schemaLoader.load(configuration);
+        Table table = database.findByName("Table002");
+
+        Column column = table.getColumns().get(3);
+
+        assertThat(column.getName(), is("hiringDate"));
+        assertThat(column.getTypeName(), is("DATETIME"));
+        assertThat(column.getOrdinalPosition(), equalTo(4));
+        assertThat(column.getSize(), equalTo(19));
+        assertThat(column.getDataType(), is(TIMESTAMP));
+        assertThat(column.getDecimalDigits(), equalTo(0));
+        assertThat(column.getDefaultValue(), is("null"));
+        assertThat(column.isNullable(), equalTo(true));
         assertThat(column.isGenerated(), equalTo(false));
         assertThat(column.isAutoIncrement(), equalTo(false));
         assertThat(column.isUnique(), equalTo(false));
