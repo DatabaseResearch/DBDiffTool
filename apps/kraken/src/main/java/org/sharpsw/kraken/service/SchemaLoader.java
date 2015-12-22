@@ -1,17 +1,17 @@
 package org.sharpsw.kraken.service;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
-
-import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
 import org.sharpsw.kraken.configuration.DatabaseConfiguration;
 import org.sharpsw.kraken.connectivity.DatabaseConnectionException;
 import org.sharpsw.kraken.connectivity.DatabaseConnectionFactory;
 import org.sharpsw.kraken.data.Database;
 import org.springframework.stereotype.Component;
+
+
+import javax.annotation.Resource;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 
 @Component
 public class SchemaLoader {
@@ -22,6 +22,9 @@ public class SchemaLoader {
 
     @Resource
     private ColumnLoader columnLoader;
+
+    @Resource
+    private UniqueConstraintLoader uniqueConstraintLoader;
 
     @Resource
     private PrimaryKeyLoader primaryKeyLoader;
@@ -41,6 +44,7 @@ public class SchemaLoader {
             loadSchemaInformation(database, connection.getMetaData());
             tableLoader.load(database, connection.getMetaData());
             columnLoader.load(database, connection.getMetaData());
+            uniqueConstraintLoader.load(database, connection.getMetaData());
             primaryKeyLoader.load(database, connection.getMetaData());
             foreignKeyLoader.load(database, connection.getMetaData());
         } catch (SQLException | DatabaseConnectionException exception) {

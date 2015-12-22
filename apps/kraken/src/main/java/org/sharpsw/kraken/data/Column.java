@@ -14,6 +14,7 @@ public class Column {
     private boolean isNullable = false;
     private boolean isAutoIncrement = false;
     private boolean isGenerated = false;
+    private boolean isUnique = false;
 
     public void setName(String name) {
         this.name = name;
@@ -93,6 +94,14 @@ public class Column {
 
     public boolean isGenerated() {
         return isGenerated;
+    }
+
+    public void setIsUnique(boolean flag) {
+        isUnique = flag;
+    }
+
+    public boolean isUnique() {
+        return isUnique;
     }
 
     @Override

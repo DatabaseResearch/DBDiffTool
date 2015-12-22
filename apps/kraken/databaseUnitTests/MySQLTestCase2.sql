@@ -1,0 +1,13 @@
+CREATE TABLE Table001 (
+    id BIGINT NOT NULL PRIMARY KEY,
+    name VARCHAR (30),
+    personType CHAR(1) NOT NULL DEFAULT 'a',
+    taxpayerId INT NOT NULL UNIQUE
+);
+
+CREATE TABLE Table002 (
+    id SMALLINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(23) NOT NULL,
+    salary DECIMAL(10, 3) NOT NULL,
+    hiringDate DATETIME
+);

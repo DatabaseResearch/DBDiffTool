@@ -85,4 +85,13 @@ public class Database {
     public List<Table> getViews() {
         return views;
     }
+
+    public Table findByName(String name) {
+        for(Table table : tables) {
+            if(name.equals(table.getName())) {
+                return table;
+            }
+        }
+        return null;
+    }
 }
