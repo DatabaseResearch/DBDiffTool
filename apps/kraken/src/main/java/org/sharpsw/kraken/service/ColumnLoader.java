@@ -1,20 +1,18 @@
 package org.sharpsw.kraken.service;
 
-import org.apache.log4j.Logger;
+import java.math.BigDecimal;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.sharpsw.kraken.data.Column;
 import org.sharpsw.kraken.data.Database;
 import org.sharpsw.kraken.data.SQLDataType;
 import org.sharpsw.kraken.data.Table;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 @Component
 public class ColumnLoader {
-    private static final Logger logger = Logger.getLogger(ColumnLoader.class);
 
     public void load(Database database, DatabaseMetaData metadata) throws SchemaLoaderException {
         for(Table table : database.getTables()) {

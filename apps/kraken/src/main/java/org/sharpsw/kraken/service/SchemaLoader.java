@@ -1,19 +1,17 @@
 package org.sharpsw.kraken.service;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.sharpsw.kraken.configuration.DatabaseConfiguration;
 import org.sharpsw.kraken.connectivity.DatabaseConnectionException;
 import org.sharpsw.kraken.connectivity.DatabaseConnectionFactory;
-import org.sharpsw.kraken.data.*;
+import org.sharpsw.kraken.data.Database;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 @Component
 public class SchemaLoader {
