@@ -1,23 +1,37 @@
 package org.sharpsw.kraken.service;
 
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertThat;
+import static org.sharpsw.kraken.data.SQLDataType.BIGINT;
+import static org.sharpsw.kraken.data.SQLDataType.CHAR;
+import static org.sharpsw.kraken.data.SQLDataType.DECIMAL;
+import static org.sharpsw.kraken.data.SQLDataType.INTEGER;
+import static org.sharpsw.kraken.data.SQLDataType.SMALLINT;
+import static org.sharpsw.kraken.data.SQLDataType.TIMESTAMP;
+import static org.sharpsw.kraken.data.SQLDataType.VARCHAR;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sharpsw.kraken.configuration.DatabaseConfiguration;
 import org.sharpsw.kraken.configuration.MySQLConfiguration;
 import org.sharpsw.kraken.connectivity.DatabaseConnectionException;
-import org.sharpsw.kraken.data.*;
+import org.sharpsw.kraken.data.Column;
+import org.sharpsw.kraken.data.Database;
+import org.sharpsw.kraken.data.PrimaryKey;
+import org.sharpsw.kraken.data.Table;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.annotation.Resource;
-import javax.xml.validation.Schema;
-import java.sql.SQLException;
-import java.util.List;
-
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
-import static org.sharpsw.kraken.data.SQLDataType.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:**/applicationContext4UnitTesting.xml"})

@@ -7,6 +7,7 @@ import org.sharpsw.kraken.connectivity.DatabaseConnectionFactory;
 import org.sharpsw.kraken.data.Database;
 import org.springframework.stereotype.Component;
 
+
 import javax.annotation.Resource;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
